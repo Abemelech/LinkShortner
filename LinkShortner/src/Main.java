@@ -4,10 +4,12 @@ import java.util.HashMap;
 import LinkShortner.src.Randomizer;
 import org.apache.commons.validator.routines.UrlValidator;
 
-    public class Main {
+public class Main {
     public static void main (String[] args) {
 
         HashMap<String, String> linkBank = new HashMap<String, String>();
+
+        linkBank.put("AM.com/google", "www.google.com");
 
         System.out.println("Welcome to AM's Shortner. WE DO LIKE THEM SHORT!!!");
         System.out.println("What would you like to choose?");
@@ -26,7 +28,13 @@ import org.apache.commons.validator.routines.UrlValidator;
 
         } else if (menuDecision == '2') {
             //Run another class
-            System.out.println("2");
+            Redirect menu2 = new Redirect();
+            String website = linkBank.get(menu2.getUrl());
+
+            System.out.println(website);
+
+
+
         } else {
             System.out.println("Not working");
         }
@@ -74,3 +82,16 @@ class ShortLink {
     }
 }
 
+
+class Redirect {
+    String url;
+    Redirect(){
+        System.out.println("Enter your shortned URL to get redirected to the official website");
+        Scanner userInput = new Scanner(System.in);
+        this.url = userInput.nextLine().toString();       
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+}
