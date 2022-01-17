@@ -42,8 +42,13 @@ class ShortLink {
         this.link = userInput.nextLine();
         String[] schemes = {"http","https"};
         UrlValidator urlValidator = new UrlValidator(schemes);
-        
-        System.out.println(link);
+
+        if (urlValidator.isValid("https://"+this.link)){
+            System.out.println("Link Verified");
+        } else {
+            System.out.println("Link Invalid");
+            this.link = null;
+        }
 
     } 
     public String getlink() {
@@ -55,7 +60,7 @@ class ShortLink {
         Scanner userInput = new Scanner(System.in);
         String specificInput = userInput.nextLine().toString();
         String shortlinkEnd;
-        if (specificInput.equals("exit")) {
+        if (specificInput.equals("no")) {
             Randomizer shorter = new Randomizer(6);
             shortlinkEnd = shorter.nextString();
         } else {
