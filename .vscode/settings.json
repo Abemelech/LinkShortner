@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\USER\\Documents\\FBA\\Coding\\Java\\commons-validator-1.7\\commons-validator-1.7.jar"
+    ]
+}
