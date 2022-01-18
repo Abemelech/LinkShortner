@@ -1,11 +1,18 @@
 package LinkShortner.src;
 import java.util.Scanner;
 import java.util.HashMap;
+import java.awt.*;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 import LinkShortner.src.Randomizer;
 import org.apache.commons.validator.routines.UrlValidator;
 
 public class Main {
-    public static void main (String[] args) {
+    public static void main (String[] args) throws MalformedURLException, IOException, URISyntaxException {
 
         HashMap<String, String> linkBank = new HashMap<String, String>();
 
@@ -32,7 +39,9 @@ public class Main {
             String website = linkBank.get(menu2.getUrl());
 
             System.out.println(website);
+            Desktop desktop = Desktop.getDesktop();
 
+            desktop.browse(new URL("https://" + website).toURI());
 
 
         } else {
