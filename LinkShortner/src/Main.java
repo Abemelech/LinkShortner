@@ -20,9 +20,7 @@ public class Main {
 
         FileHandle db = new FileHandle(file);
 
-        linkBank.put("AM.com/google", "www.google.com");
-
-        db.saveFile(linkBank);
+        db.accessFile(linkBank);
 
         // Console prints of instruction for the user to choose between creating a link or getting redirected
         System.out.println("Welcome to AM's Shortner. WE DO LIKE THEM SHORT!!!");
@@ -40,7 +38,7 @@ public class Main {
             //Get link and shortned link and store them in the link bank
             ShortLink start = new ShortLink();
             linkBank.put(start.getShort(), start.getlink());
-            
+
             db.saveFile(linkBank);
             System.out.println(linkBank);
 
@@ -152,6 +150,37 @@ class FileHandle {
             }
             catch (Exception e) {
 
+            }
+        }
+    }
+
+    public void accessFile(HashMap<String, String> linkBank){
+
+        BufferedReader br = null;
+
+        try {
+            br = new BufferedReader(new FileReader(file));
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+
+                String shortend = parts[0].trim();
+                String link = parts[1].trim(); 
+
+                if (!shortend.equals("") && !link.equals(""))
+                    linkBank.put(shortend, link);
+            }
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (br != null) {
+                try {
+                    br.close();
+                }
+                catch (Exception e) {
+                };
             }
         }
     }
