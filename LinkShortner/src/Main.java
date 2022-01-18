@@ -1,8 +1,7 @@
 package LinkShortner.src;
-import java.util.Scanner;
-import java.util.HashMap;
+import java.util.*;
 import java.awt.*;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,7 +16,13 @@ public class Main {
         // A hashmap to store the link and the shortned link
         HashMap<String, String> linkBank = new HashMap<String, String>();
 
+        File file = new File("linkbank.txt");
+
+        FileHandle db = new FileHandle(file);
+
         linkBank.put("AM.com/google", "www.google.com");
+
+        db.saveFile(linkBank);
 
         // Console prints of instruction for the user to choose between creating a link or getting redirected
         System.out.println("Welcome to AM's Shortner. WE DO LIKE THEM SHORT!!!");
@@ -35,6 +40,8 @@ public class Main {
             //Get link and shortned link and store them in the link bank
             ShortLink start = new ShortLink();
             linkBank.put(start.getShort(), start.getlink());
+            
+            db.saveFile(linkBank);
             System.out.println(linkBank);
 
         } else if (menuDecision == '2') {
@@ -116,5 +123,36 @@ class Redirect {
     public String getUrl() {
         // Send url
         return this.url;
+    }
+}
+
+class FileHandle {
+    File file;
+    FileHandle(File file){
+        this.file = file;
+    }
+        
+    public void saveFile(HashMap<String, String> linkBank) { 
+        BufferedWriter bf = null;
+        try {
+            bf = new BufferedWriter(new FileWriter(file));
+
+            for (Map.Entry<String, String> entry: linkBank.entrySet()) {
+                bf.write(entry.getKey() + ":" + entry.getValue());
+                bf.newLine();
+            }
+            bf.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                bf.close();
+            }
+            catch (Exception e) {
+
+            }
+        }
     }
 }
